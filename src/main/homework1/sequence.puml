@@ -1,0 +1,57 @@
+@startuml
+
+actor User
+participant "Система" as System
+participant "База данных" as Database
+
+User -> System: Выбор города
+System -> Database: Запрос мероприятий по городу
+Database --> System: Список мероприятий
+System --> User: Отображение мероприятий
+
+User -> System: Фильтрация по категориям
+System -> Database: Запрос мероприятий по категориям
+Database --> System: Список мероприятий
+System --> User: Отображение отфильтрованных мероприятий
+
+User -> System: Фильтрация по дате
+System -> Database: Запрос мероприятий по дате
+Database --> System: Список мероприятий
+System --> User: Отображение отфильтрованных мероприятий
+
+User -> System: Фильтрация по цене
+System -> Database: Запрос мероприятий по цене
+Database --> System: Список мероприятий
+System --> User: Отображение отфильтрованных мероприятий
+
+User -> System: Просмотр информации о событии
+System -> Database: Запрос деталей мероприятия
+Database --> System: Детали мероприятия
+System --> User: Отображение информации о мероприятии
+
+User -> System: Лайки артистам
+System -> Database: Обновление предпочтений пользователя
+Database --> System: Подтверждение обновления
+System --> User: Подтверждение лайка
+
+User -> System: Лайки местам проведения
+System -> Database: Обновление предпочтений пользователя
+Database --> System: Подтверждение обновления
+System --> User: Подтверждение лайка
+
+User -> System: Лайки категориям мероприятий
+System -> Database: Обновление предпочтений пользователя
+Database --> System: Подтверждение обновления
+System --> User: Подтверждение лайка
+
+User -> System: Подписка на уведомления
+System -> Database: Сохранение настроек уведомлений
+Database --> System: Подтверждение сохранения
+System --> User: Подтверждение подписки
+
+User -> System: Настройка напоминаний
+System -> Database: Сохранение настроек напоминаний
+Database --> System: Подтверждение сохранения
+System --> User: Подтверждение настройки
+
+@enduml
