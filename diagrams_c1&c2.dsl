@@ -62,7 +62,6 @@ workspace {
             autolayout lr
 
         }
-
         styles {
             element "Print" {
                 color #000000
