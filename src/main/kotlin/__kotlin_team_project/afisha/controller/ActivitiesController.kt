@@ -1,6 +1,7 @@
 package __kotlin_team_project.afisha.controller
 
-import jdk.jfr.Event
+import __kotlin_team_project.afisha.repository.EventRepository
+import __kotlin_team_project.afisha.model.Event
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -18,7 +19,7 @@ class ActivitiesController(private val eventRepository: EventRepository) {
     // Поиск событий по названию
     @GetMapping("/search/by-name")
     fun searchByName(@RequestParam name: String): ResponseEntity<List<Event>> {
-        val events = eventRepository.findByNameContainingIgnoreCase(name)  // Поиск по части названия
+        val events = eventRepository.findByNameContainingIgnoreCase(name)
         return if (events.isNotEmpty()) {
             ResponseEntity.ok(events)
         } else {
@@ -29,7 +30,7 @@ class ActivitiesController(private val eventRepository: EventRepository) {
     // Поиск событий по категории
     @GetMapping("/search/by-category")
     fun searchByCategory(@RequestParam category: String): ResponseEntity<List<Event>> {
-        val events = eventRepository.findByCategoryContainingIgnoreCase(category)  // Поиск по категории
+        val events = eventRepository.findByCategoryContainingIgnoreCase(category)
         return if (events.isNotEmpty()) {
             ResponseEntity.ok(events)
         } else {

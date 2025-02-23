@@ -1,1 +1,12 @@
-spring.application.name=afisha 
+spring.application.name=afisha
+
+# Server Configuration
+server.port=8080
+
+# Telegram Bot Configuration
+telegram.bot.token=your_bot_token_here
+
+# Logging Configuration
+logging.level.root=INFO
+logging.level.__kotlin_team_project.afisha=DEBUG
+logging.level.org.springframework.web=INFO
