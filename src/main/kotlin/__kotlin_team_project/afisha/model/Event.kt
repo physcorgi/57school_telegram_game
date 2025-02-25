@@ -17,9 +17,8 @@ data class Event(
 
     @field:NotBlank(message = "Категория не может быть пустой")
     @Column(nullable = false)
-    var category: String = "",
+    var name: String = "",
 
-    @Column(nullable = false)
     var description: String = "",
 
     @Column(nullable = false)
@@ -31,3 +30,4 @@ data class Event(
     @Column(nullable = false)
     var price: Double = 0.0
 ) 
+
