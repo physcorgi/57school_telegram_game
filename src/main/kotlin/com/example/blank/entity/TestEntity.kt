@@ -22,22 +22,30 @@ class TestEntity(
     val contentType: String,
 
     @Column(nullable = true, length = 50)
-    val difficulty: String?,
+    var difficulty: String?,
 
     @Column(nullable = false, columnDefinition = "jsonb")
-    val questions: String,
+    var questions: String,
 
     @Column(nullable = false, columnDefinition = "jsonb")
-    val answers: String,
+    var answers: String,
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    val createdAt: LocalDateTime = LocalDateTime.now()
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+
+    @Column(name = "updated_at", nullable = false)
+    var updatedAt: LocalDateTime = LocalDateTime.now()
 )
+
+fun TestEntity.updateTimestamp() {
+    updatedAt = LocalDateTime.now()
+}
 
 fun TestEntity.toDto() = TestDto(
     contentType = contentType,
     difficulty = difficulty,
     questions = questions,
     answers = answers,
-    createdAt = createdAt
+    createdAt = createdAt,
+    updatedAt = updatedAt
 )

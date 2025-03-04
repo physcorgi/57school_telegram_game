@@ -18,11 +18,11 @@ class TopicEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @Column(nullable = false, length = 255)
-    val name: String,
+    @Column(nullable = false, length = 255, unique = true)
+    var name: String,
 
     @Column(nullable = true)
-    val description: String? = null,
+    var description: String? = null,
 
     @Column(name = "created_by", nullable = false, length = 255)
     val createdBy: String,

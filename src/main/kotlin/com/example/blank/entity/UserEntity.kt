@@ -22,19 +22,19 @@ class UserEntity(
     val telegramId: Long,
 
     @Column(nullable = false, length = 255)
-    val username: String,
+    var username: String,
 
     @Column(name = "full_name", nullable = true, length = 255)
-    val fullName: String? = null,
+    var fullName: String? = null,
 
     @Column(name = "profile_data", nullable = true, columnDefinition = "jsonb")
-    val profileData: String? = null,
+    var profileData: String? = null,
 
     @Column(nullable = false)
-    val rating: Int = 0,
+    var rating: Int = 0,
 
     @Column(nullable = false)
-    val streak: Int = 0,
+    var streak: Int = 0,
 
     @Column(name = "created_at", nullable = false, updatable = false)
     val createdAt: LocalDateTime = LocalDateTime.now(),

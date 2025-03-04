@@ -28,7 +28,12 @@ class TestDto(
     @Schema(
         description = "Дата и время создания теста",
     )
-    val createdAt: LocalDateTime = LocalDateTime.now()
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+
+    @Schema(
+        description = "Дата и время последнего обновления теста",
+    )
+    var updatedAt: LocalDateTime = LocalDateTime.now()
 )
 
 fun TestDto.toEntity() = TestEntity(
@@ -36,5 +41,6 @@ fun TestDto.toEntity() = TestEntity(
     difficulty = difficulty,
     questions = questions,
     answers = answers,
-    createdAt = createdAt
+    createdAt = createdAt,
+    updatedAt = updatedAt
 )
