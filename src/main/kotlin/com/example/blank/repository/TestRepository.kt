@@ -11,6 +11,6 @@ interface TestRepository : JpaRepository<TestEntity, Long> {
     fun findAllByContentType(contentType: String): List<TestEntity>?
     fun findAllByDifficulty(difficulty: String): List<TestEntity>?
     fun deleteByTestId(testId: Long): TestEntity?
-    fun deleteByContentType(contentType: String): List<TestEntity>?
-    fun deleteByDifficulty(difficulty: String): List<TestEntity>?
+    fun deleteAllByContentType(contentType: String): List<TestEntity>?
+    fun deleteAllByDifficulty(difficulty: String): List<TestEntity>?
 }

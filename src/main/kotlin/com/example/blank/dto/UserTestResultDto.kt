@@ -21,14 +21,32 @@ class UserTestResultDto(
     val score: Int,
 
     @Schema(
-        description = "Дата и время завершения теста",
+        description = "Время выполнения теста",
     )
-    val completedAt: LocalDateTime = LocalDateTime.now()
+    val time: Float,
+
+    @Schema(
+        description = "Количество попыток выполнения теста",
+    )
+    val count: Int,
+
+    @Schema(
+        description = "Дата и время завершения первой попытки теста",
+    )
+    val firstCompletedAt: LocalDateTime = LocalDateTime.now(),
+
+    @Schema(
+        description = "Дата и время завершения последней попытки теста",
+    )
+    val lastCompletedAt: LocalDateTime = LocalDateTime.now()
 )
 
 fun UserTestResultDto.toEntity() = UserTestResultEntity(
     userId = userId,
     testId = testId,
     score = score,
-    completedAt = completedAt
+    time = time,
+    count = count,
+    firstCompletedAt = firstCompletedAt,
+    lastCompletedAt = lastCompletedAt
 )

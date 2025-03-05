@@ -23,12 +23,18 @@ class ContentDto(
     @Schema(
         description = "Дата и время создания контента",
     )
-    val createdAt: LocalDateTime = LocalDateTime.now()
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+
+    @Schema(
+        description = "Дата и время последнего обновления контента",
+    )
+    var updatedAt: LocalDateTime = LocalDateTime.now()
 )
 
 fun ContentDto.toEntity() = ContentEntity(
     topicId = topicId,
     type = type,
     contentData = contentData,
-    createdAt = createdAt
+    createdAt = createdAt,
+    updatedAt = updatedAt
 )

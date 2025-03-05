@@ -12,5 +12,5 @@ interface TopicRepository : JpaRepository<TopicEntity, Long> {
     fun findAllByCreatedBy(createdBy: String): List<TopicEntity>?
     fun deleteByTopicId(topicId: Long): TopicEntity?
     fun deleteByName(name: String): TopicEntity?
-    fun deleteByCreatedBy(createdBy: String)
+    fun deleteAllByCreatedBy(createdBy: String)
 }

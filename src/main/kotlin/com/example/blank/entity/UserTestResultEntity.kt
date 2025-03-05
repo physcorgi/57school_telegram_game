@@ -26,15 +26,31 @@ class UserTestResultEntity(
     val testId: Long,
 
     @Column(nullable = false)
-    val score: Int,
+    var score: Int,
 
-    @Column(name = "completed_at", nullable = false)
-    val completedAt: LocalDateTime = LocalDateTime.now()
+    @Column(nullable = false)
+    var time: Float,
+
+    @Column(nullable = false)
+    var count: Int = 0,
+
+    @Column(name = "first_completed_at", nullable = false)
+    val firstCompletedAt: LocalDateTime = LocalDateTime.now(),
+
+    @Column(name = "last_completed_at", nullable = false)
+    var lastCompletedAt: LocalDateTime = LocalDateTime.now()
 )
+
+fun UserTestResultEntity.updateTimestamp() {
+    lastCompletedAt = LocalDateTime.now()
+}
 
 fun UserTestResultEntity.toDto() = UserTestResultDto(
     userId = userId,
     testId = testId,
     score = score,
-    completedAt = completedAt
+    time = time,
+    count = count,
+    firstCompletedAt = firstCompletedAt,
+    lastCompletedAt = lastCompletedAt
 )

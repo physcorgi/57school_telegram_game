@@ -46,7 +46,7 @@ class TestService(
             throw TestNotFoundException("No tests with contentType $contentType found")
         }
 
-        TestRepository.deleteByContentType(contentType)
+        TestRepository.deleteAllByContentType(contentType)
         return tests
     }
 
@@ -58,7 +58,7 @@ class TestService(
             throw TestNotFoundException("No tests with difficulty $difficulty found")
         }
 
-        TestRepository.deleteByDifficulty(difficulty)
+        TestRepository.deleteAllByDifficulty(difficulty)
         return tests
     }
 

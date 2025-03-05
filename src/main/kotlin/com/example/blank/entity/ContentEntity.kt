@@ -22,18 +22,26 @@ class ContentEntity(
     val topicId: Long,
 
     @Column(nullable = false, length = 50)
-    val type: String,
+    var type: String,
 
     @Column(name = "content_data", nullable = false)
-    val contentData: String,
+    var contentData: String,
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    val createdAt: LocalDateTime = LocalDateTime.now()
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+
+    @Column(name = "updated_at", nullable = false)
+    var updatedAt: LocalDateTime = LocalDateTime.now()
 )
+
+fun ContentEntity.updateTimestamp() {
+    updatedAt = LocalDateTime.now()
+}
 
 fun ContentEntity.toDto() = ContentDto(
     topicId = topicId,
     type = type,
     contentData = contentData,
-    createdAt = createdAt
+    createdAt = createdAt,
+    updatedAt = updatedAt
 )

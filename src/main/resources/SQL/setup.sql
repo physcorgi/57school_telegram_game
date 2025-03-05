@@ -47,7 +47,8 @@ CREATE TABLE Content (
     topic_id BIGINT REFERENCES Topics(id) ON DELETE CASCADE,
     type VARCHAR(50) NOT NULL,
     content_data TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Таблица Tests
@@ -57,7 +58,8 @@ CREATE TABLE Tests (
     difficulty VARCHAR(50),
     questions JSONB,
     answers JSONB,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Таблица User_Test_Results
@@ -66,7 +68,10 @@ CREATE TABLE User_Test_Results (
     user_id BIGINT REFERENCES Users(id) ON DELETE CASCADE,
     test_id BIGINT REFERENCES Tests(id) ON DELETE CASCADE,
     score INT,
-    completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    time FLOAT,
+    count INT,
+    first_completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Таблица Activity_Log

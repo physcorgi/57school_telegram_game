@@ -53,7 +53,7 @@ class TopicService(
             throw TopicNotFoundException("No topics created by $createdBy found")
         }
 
-        topicRepository.deleteByCreatedBy(createdBy)
+        topicRepository.deleteAllByCreatedBy(createdBy)
         return topics
     }
 

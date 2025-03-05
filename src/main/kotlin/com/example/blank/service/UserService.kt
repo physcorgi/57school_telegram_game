@@ -31,6 +31,10 @@ class UserService(
         return userRepository.findAllByRating(rating) ?: throw UserNotFoundException("No users with rating $rating found")
     }
 
+    fun getAllUsersByStreak(streak: Int): List<UserEntity> {
+        return userRepository.findAllByStreak(streak) ?: throw UserNotFoundException("No users with streak $streak found")
+    }
+
     @Transactional
     fun deleteUserByUserId(userId: Long): UserEntity {
         val user = userRepository.findByUserId(userId) ?: throw UserNotFoundException("User with userId $userId not found")
