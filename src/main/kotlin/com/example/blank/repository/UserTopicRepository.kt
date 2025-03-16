@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface UserTopicRepository : JpaRepository<UserTopicEntity, Long> {
-    fun findByUserTopicId(userTopicId: Long): UserTopicEntity?
+    //fun findByUserTopicId(userTopicId: Long): UserTopicEntity?
     fun findAllByUserId(userId: Long): List<UserTopicEntity>?
     fun findAllByTopicId(topicId: Int): List<UserTopicEntity>?
-    fun deleteByUserTopicId(userTopicId: Long): UserTopicEntity?
+    //fun deleteByUserTopicId(userTopicId: Long): UserTopicEntity?
 }

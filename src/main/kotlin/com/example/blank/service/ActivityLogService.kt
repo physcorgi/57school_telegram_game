@@ -13,18 +13,23 @@ import java.time.LocalDateTime
 
 @Service
 class ActivityLogService(
-    val activityLogRepository: ActivityLogRepository
+    private val activityLogRepository: ActivityLogRepository
 ) {
 
     fun addActivityLog(activityLog: ActivityLogDto) {
         activityLogRepository.save(activityLog.toEntity())
     }
 
+//    fun getActivityLogById(activityLogId: Long): ActivityLogEntity {
+//        return activityLogRepository.findByActivityLogId(activityLogId) ?: throw ActivityLogNotFoundException("Activity log with id $activityLogId not found")
+//    }
+
     fun getActivityLogById(activityLogId: Long): ActivityLogEntity {
-        return activityLogRepository.findByActivityLogId(activityLogId) ?: throw ActivityLogNotFoundException("Activity log with id $activityLogId not found")
+        return activityLogRepository.findById(activityLogId)
+            .orElseThrow { ActivityLogNotFoundException("Activity log with id $activityLogId not found") }
     }
 
-    fun getAllActivityLogsByUserId(userId: Long): ActivityLogEntity {
+    fun getAllActivityLogsByUserId(userId: Long): List<ActivityLogEntity> {
         return activityLogRepository.findAllByUserId(userId) ?: throw ActivityLogNotFoundException("Activity logs for user with id $userId not found")
     }
 
@@ -32,30 +37,70 @@ class ActivityLogService(
         return activityLogRepository.findAllByAction(action) ?: throw ActivityLogNotFoundException("Activity logs with action $action not found")
     }
 
-    @Transactional
-    fun deleteActivityLogById(activityLogId: Long): ActivityLogEntity {
-        val activityLog = activityLogRepository.findByActivityLogId(activityLogId) ?: throw ActivityLogNotFoundException("Activity log with id $activityLogId not found")
-        activityLogRepository.deleteByActivityLogId(activityLogId)
-        return activityLog
-    }
+//    @Transactional
+//    fun deleteActivityLogById(activityLogId: Long): ActivityLogEntity {
+//        val activityLog = activityLogRepository.findByActivityLogId(activityLogId) ?: throw ActivityLogNotFoundException("Activity log with id $activityLogId not found")
+//        activityLogRepository.deleteByActivityLogId(activityLogId)
+//        return activityLog
+//    }
 
     @Transactional
-    fun deleteAllActivityLogsByUserId(userId: Long): ActivityLogEntity {
-        val activityLog = activityLogRepository.findAllByUserId(userId) ?: throw ActivityLogNotFoundException("Activity logs for user with id $userId not found")
-        activityLogRepository.deleteAllByUserId(userId)
-        return activityLog
+    fun deleteActivityLogById(activityLogId: Long): Boolean {
+        return if (activityLogRepository.existsById(activityLogId)) {
+            activityLogRepository.deleteById(activityLogId)
+            true
+        } else {
+            false
+        }
     }
 
-    @Transactional
-    fun deleteAllActivityLogsByAction(action: String): List<ActivityLogEntity> {
-        val activityLogs = activityLogRepository.deleteAllByAction(action) ?: throw ActivityLogNotFoundException("Activity logs with action $action not found")
-        return activityLogs
-    }
+//    @Transactional
+//    fun deleteAllActivityLogsByUserId(userId: Long): ActivityLogEntity {
+//        val activityLog = activityLogRepository.findAllByUserId(userId) ?: throw ActivityLogNotFoundException("Activity logs for user with id $userId not found")
+//        activityLogRepository.deleteAllByUserId(userId)
+//        return activityLog
+//    }
 
     @Transactional
-    fun deleteAllActivityLogsOlderThan(date: LocalDateTime): List<ActivityLogEntity> {
-        val activityLogs = activityLogRepository.deleteAllByCreatedAtBefore(date) ?: throw ActivityLogNotFoundException("Activity logs older than date $date not found")
-        return activityLogs
+    fun deleteAllActivityLogsByUserId(userId: Long): Boolean {
+        return if (activityLogRepository.existsByUserId(userId)) {
+            activityLogRepository.deleteAllByUserId(userId)
+            true
+        } else {
+            false
+        }
+    }
+
+//    @Transactional
+//    fun deleteAllActivityLogsByAction(action: String): List<ActivityLogEntity> {
+//        val activityLogs = activityLogRepository.deleteAllByAction(action) ?: throw ActivityLogNotFoundException("Activity logs with action $action not found")
+//        return activityLogs
+//    }
+
+    @Transactional
+    fun deleteAllActivityLogsByAction(action: String): Boolean {
+        return if (activityLogRepository.existsByAction(action)) {
+            activityLogRepository.deleteAllByAction(action)
+            true
+        } else {
+            false
+        }
+    }
+
+//    @Transactional
+//    fun deleteAllActivityLogsOlderThan(date: LocalDateTime): List<ActivityLogEntity> {
+//        val activityLogs = activityLogRepository.deleteAllByCreatedAtBefore(date) ?: throw ActivityLogNotFoundException("Activity logs older than date $date not found")
+//        return activityLogs
+//    }
+
+    @Transactional
+    fun deleteAllActivityLogsOlderThan(date: LocalDateTime): Boolean {
+        return if (activityLogRepository.existsByCreatedAtBefore(date)) {
+            activityLogRepository.deleteAllByCreatedAtBefore(date)
+            true
+        } else {
+            false
+        }
     }
 }
 

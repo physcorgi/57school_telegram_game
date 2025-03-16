@@ -7,10 +7,12 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface TopicRepository : JpaRepository<TopicEntity, Long> {
-    fun findByTopicId(topicId: Long): TopicEntity?
+    //fun findByTopicId(topicId: Long): TopicEntity?
     fun findByName(name: String): TopicEntity?
     fun findAllByCreatedBy(createdBy: String): List<TopicEntity>?
-    fun deleteByTopicId(topicId: Long): TopicEntity?
-    fun deleteByName(name: String): TopicEntity?
+    //fun deleteByTopicId(topicId: Long): TopicEntity?
+    fun deleteByName(name: String)
     fun deleteAllByCreatedBy(createdBy: String)
+    fun existsByName(name: String): Boolean
+    fun existsByCreatedBy(createdBy: String): Boolean
 }
