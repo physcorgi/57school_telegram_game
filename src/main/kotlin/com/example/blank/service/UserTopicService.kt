@@ -12,16 +12,21 @@ import com.example.blank.entity.UserTopicEntity
 
 @Service
 class UserTopicService(
-    val userTopicRepository: UserTopicRepository
+    private val userTopicRepository: UserTopicRepository
 ) {
 
     fun addUserTopic(userTopic: UserTopicDto) {
         userTopicRepository.save(userTopic.toEntity())
     }
 
+//    fun getUserTopicById(userTopicId: Long): UserTopicEntity {
+//        return userTopicRepository.findByUserTopicId(userTopicId)
+//            ?: throw UserTopicNotFoundException("User topic with id $userTopicId not found")
+//    }
+
     fun getUserTopicById(userTopicId: Long): UserTopicEntity {
-        return userTopicRepository.findByUserTopicId(userTopicId)
-            ?: throw UserTopicNotFoundException("User topic with id $userTopicId not found")
+        return userTopicRepository.findById(userTopicId)
+            .orElseThrow { UserTopicNotFoundException("User topic with id $userTopicId not found") }
     }
 
     fun getAllUserTopicsByUserId(userId: Long): List<UserTopicEntity> {
@@ -31,15 +36,25 @@ class UserTopicService(
 
     fun getAllUserTopicsByTopicId(topicId: Int): List<UserTopicEntity> {
         return userTopicRepository.findAllByTopicId(topicId)
-            ?: throw UserTopicNotFoundException("No topics found with topic id $topicId")
+            ?: throw UserTopicNotFoundException("No users found for topic id $topicId")
     }
 
+//    @Transactional
+//    fun deleteUserTopicById(userTopicId: Long): UserTopicEntity {
+//        val userTopic = userTopicRepository.findByUserTopicId(userTopicId)
+//            ?: throw UserTopicNotFoundException("User topic with id $userTopicId not found")
+//        userTopicRepository.deleteByUserTopicId(userTopicId)
+//        return userTopic
+//    }
+
     @Transactional
-    fun deleteUserTopicById(userTopicId: Long): UserTopicEntity {
-        val userTopic = userTopicRepository.findByUserTopicId(userTopicId)
-            ?: throw UserTopicNotFoundException("User topic with id $userTopicId not found")
-        userTopicRepository.deleteByUserTopicId(userTopicId)
-        return userTopic
+    fun deleteUserTopicById(userTopicId: Long): Boolean {
+        return if (userTopicRepository.existsById(userTopicId)) {
+            userTopicRepository.deleteById(userTopicId)
+            true
+        } else {
+            false
+        }
     }
 
 }

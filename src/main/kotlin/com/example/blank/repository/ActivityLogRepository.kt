@@ -11,14 +11,18 @@ import java.time.LocalDateTime
 
 @Repository
 interface ActivityLogRepository : JpaRepository<ActivityLogEntity, Long> {
-    fun findByActivityLogId(activityLogId: Long): ActivityLogEntity?
-    fun findAllByUserId(userId: Long): ActivityLogEntity?
+    //fun findByActivityLogId(activityLogId: Long): ActivityLogEntity?
+    fun findAllByUserId(userId: Long): List<ActivityLogEntity>?
     fun findAllByAction(action: String): List<ActivityLogEntity>?
-    fun deleteByActivityLogId(activityLogId: Long): ActivityLogEntity?
-    fun deleteAllByUserId(userId: Long): ActivityLogEntity?
-    fun deleteAllByAction(action: String): List<ActivityLogEntity>?
+    //fun deleteByActivityLogId(activityLogId: Long): ActivityLogEntity?
+    fun deleteAllByUserId(userId: Long)
+    fun deleteAllByAction(action: String)
 
     @Modifying
     @Query("DELETE FROM ActivityLogEntity a WHERE a.createdAt < :date")
-    fun deleteAllByCreatedAtBefore(date: LocalDateTime): List<ActivityLogEntity>?
+    fun deleteAllByCreatedAtBefore(date: LocalDateTime)
+
+    fun existsByUserId(userId: Long): Boolean
+    fun existsByAction(action: String): Boolean
+    fun existsByCreatedAtBefore(date: LocalDateTime): Boolean
 }

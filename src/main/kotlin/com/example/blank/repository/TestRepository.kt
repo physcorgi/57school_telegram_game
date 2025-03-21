@@ -7,10 +7,12 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface TestRepository : JpaRepository<TestEntity, Long> {
-    fun findByTestId(testId: Long): TestEntity?
+    //fun findByTestId(testId: Long): TestEntity?
     fun findAllByContentType(contentType: String): List<TestEntity>?
     fun findAllByDifficulty(difficulty: String): List<TestEntity>?
-    fun deleteByTestId(testId: Long): TestEntity?
-    fun deleteAllByContentType(contentType: String): List<TestEntity>?
-    fun deleteAllByDifficulty(difficulty: String): List<TestEntity>?
+    //fun deleteByTestId(testId: Long): TestEntity?
+    fun deleteAllByContentType(contentType: String)
+    fun deleteAllByDifficulty(difficulty: String)
+    fun existsByContentType(contentType: String): Boolean
+    fun existsByDifficulty(difficulty: String): Boolean
 }

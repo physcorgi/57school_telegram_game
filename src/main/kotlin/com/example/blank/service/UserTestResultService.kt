@@ -12,16 +12,21 @@ import com.example.blank.entity.UserTestResultEntity
 
 @Service
 class UserTestResultService(
-    val userTestResultRepository: UserTestResultRepository
+    private val userTestResultRepository: UserTestResultRepository
 ) {
 
     fun addUserTestResult(userTestResult: UserTestResultDto) {
         userTestResultRepository.save(userTestResult.toEntity())
     }
 
+//    fun getUserTestResultById(userTestResultId: Long): UserTestResultEntity {
+//        return userTestResultRepository.findByUserTestResultId(userTestResultId)
+//            ?: throw UserTestResultNotFoundException("User test result with id $userTestResultId not found")
+//    }
+
     fun getUserTestResultById(userTestResultId: Long): UserTestResultEntity {
-        return userTestResultRepository.findByUserTestResultId(userTestResultId)
-            ?: throw UserTestResultNotFoundException("User test result with id $userTestResultId not found")
+        return userTestResultRepository.findById(userTestResultId)
+            .orElseThrow { UserTestResultNotFoundException("User test result with id $userTestResultId not found") }
     }
 
     fun getAllUserTestResultsByUserId(userId: Long): List<UserTestResultEntity> {
@@ -44,18 +49,38 @@ class UserTestResultService(
             ?: throw UserTestResultNotFoundException("No test results found for test $testId with score $score")
     }
 
-    @Transactional
-    fun deleteUserTestResultById(userTestResultId: Long): UserTestResultEntity {
-        val userTestResult = userTestResultRepository.findByUserTestResultId(userTestResultId)
-            ?: throw UserTestResultNotFoundException("User test result with id $userTestResultId not found")
-        userTestResultRepository.deleteByUserTestResultId(userTestResultId)
-        return userTestResult
-    }
+//    @Transactional
+//    fun deleteUserTestResultById(userTestResultId: Long): UserTestResultEntity {
+//        val userTestResult = userTestResultRepository.findByUserTestResultId(userTestResultId)
+//            ?: throw UserTestResultNotFoundException("User test result with id $userTestResultId not found")
+//        userTestResultRepository.deleteByUserTestResultId(userTestResultId)
+//        return userTestResult
+//    }
 
     @Transactional
+    fun deleteUserTestResultById(userTestResultId: Long): Boolean {
+        return if (userTestResultRepository.existsById(userTestResultId)) {
+            userTestResultRepository.deleteById(userTestResultId)
+            true
+        } else {
+            false
+        }
+    }
+
+//    @Transactional
+//    fun updateUserTestResultResult(userTestResultId: Long, newScore: Int, newTime: Float): UserTestResultEntity {
+//        val userTestResult = userTestResultRepository.findByUserTestResultId(userTestResultId)
+//            ?: throw UserTestResultNotFoundException("User test result with id $userTestResultId not found")
+//        userTestResult.score = newScore
+//        userTestResult.time = newTime
+//        userTestResult.count += 1
+//        userTestResult.updateTimestamp()
+//        return userTestResultRepository.save(userTestResult)
+//    }
+
     fun updateUserTestResultResult(userTestResultId: Long, newScore: Int, newTime: Float): UserTestResultEntity {
-        val userTestResult = userTestResultRepository.findByUserTestResultId(userTestResultId)
-            ?: throw UserTestResultNotFoundException("User test result with id $userTestResultId not found")
+        val userTestResult = userTestResultRepository.findById(userTestResultId)
+            .orElseThrow { UserTestResultNotFoundException("User test result with id $userTestResultId not found") }
         userTestResult.score = newScore
         userTestResult.time = newTime
         userTestResult.count += 1
