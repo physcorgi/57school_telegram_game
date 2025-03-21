@@ -33,16 +33,6 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     runtimeOnly("org.postgresql:postgresql")
     
-    // Telegram Bot dependencies
-    implementation("dev.inmo:tgbotapi:9.0.0")
-    implementation("dev.inmo:tgbotapi-kotlinx-serialization:9.0.0")
-    implementation("dev.inmo:tgbotapi-extensions-api:9.0.0")
-    implementation("dev.inmo:tgbotapi-extensions-utils:9.0.0")
-    implementation("dev.inmo:tgbotapi-extensions-common:9.0.0")
-    implementation("dev.inmo:tgbotapi-extensions-behaviour-builder:9.0.0")
-    implementation("dev.inmo:tgbotapi-extensions-utils-ktor:9.0.0")
-    implementation("dev.inmo:tgbotapi-extensions-utils-coroutines:9.0.0")
-    
     // Test dependencies
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(module = "mockito-core")
