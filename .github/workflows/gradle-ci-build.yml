@@ -3,25 +3,28 @@ name: build
 on:
   push:
     branches:
-    - master
-    - 'renovate/**'
+      - master
+      - 'renovate/**'  # Для обновлений, выполненных Renovate
   pull_request:
     branches:
-    - master
-    - conversation
-    - echo
-    - exception-handling
-    - poll
-    - heroku
-    - ktor-webhook
-    - spring-bot
+      - master
+      - conversation
+      - echo
+      - exception-handling
+      - poll
+      - heroku
+      - ktor-webhook
+      - spring-bot
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
