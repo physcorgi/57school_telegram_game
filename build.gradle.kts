@@ -42,7 +42,9 @@ dependencies {
     testImplementation("io.mockk:mockk:1.13.16")
     testImplementation("com.ninja-squad:springmockk:4.0.2")
 }
-
+tasks.test {
+    useJUnitPlatform()
+}
 kotlin {
     compilerOptions {
         jvmTarget = JvmTarget.fromTarget(jvmTargetVersion.majorVersion)
