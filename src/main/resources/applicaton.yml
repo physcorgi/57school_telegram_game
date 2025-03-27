@@ -21,7 +21,7 @@ spring:
           merge.entity_copy_observer: allow
   liquibase:
     enabled: true
-    change-log: classpath:db/changelog/master.yaml
+    change-log: classpath:db/changelog/master.yml
 
 # Конфигурация телеграм-бота
 ktgram:
